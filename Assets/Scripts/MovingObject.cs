@@ -9,6 +9,7 @@ public abstract class MovingObject : MonoBehaviour
     private BoxCollider2D boxCollider;
     private Rigidbody2D rb2D;
     private float inverseMoveTime;
+    private bool isMoving;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -24,7 +25,7 @@ public abstract class MovingObject : MonoBehaviour
         boxCollider.enabled = false;
         hit = Physics2D.Linecast(start, end, blockingLayer);
         boxCollider.enabled = true;
-        if (hit.transform == null) //&& !isMoving
+        if (hit.transform == null && !isMoving)
         {
             StartCoroutine(SmoothMovement(end));
             return true;
@@ -33,6 +34,7 @@ public abstract class MovingObject : MonoBehaviour
     }
     protected IEnumerator SmoothMovement (Vector3 end)
     {
+        isMoving = true;
         float sqrRemainingDistance = (transform.position - end).sqrMagnitude;
         while(sqrRemainingDistance > float.Epsilon)
         {
@@ -41,6 +43,8 @@ public abstract class MovingObject : MonoBehaviour
             sqrRemainingDistance = (transform.position - end).sqrMagnitude;
             yield return null;
         }
+        rb2D.MovePosition(end);
+        isMoving = false;
     }
     protected virtual void AttemptMove<T>(int xDir, int yDir)
             where T : Component

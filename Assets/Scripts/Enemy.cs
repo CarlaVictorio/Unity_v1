@@ -64,6 +64,19 @@ public class Enemy : MovingObject
             //Check if target x position is greater than enemy's x position, if so set x direction to 1 (move right), if not set to -1 (move left).
             xDir = target.position.x > transform.position.x ? 1 : -1;
 
+        if (xDir < 0)
+        {
+            animator.SetTrigger("enemyLeft");
+
+        }else if (xDir > 0)
+        {
+            animator.SetTrigger("enemyRight");
+            
+        } else if (yDir > 0)
+        {
+            animator.SetTrigger("enemyUp");
+    
+        } 
         //Call the AttemptMove function and pass in the generic parameter Player, because Enemy is moving and expecting to potentially encounter a Player
         AttemptMove<Player>(xDir, yDir);
     }

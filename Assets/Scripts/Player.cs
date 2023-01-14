@@ -47,6 +47,19 @@ public class Player : MovingObject
         horizontal = (int)(Input.GetAxisRaw("Horizontal"));
         //Get input from the input manager, round it to an integer and store in vertical to set y axis move direction
         vertical = (int)(Input.GetAxisRaw("Vertical"));
+        if (horizontal < 0)
+        {
+            animator.SetTrigger("playerLeft");
+
+        }else if (horizontal > 0)
+        {
+            animator.SetTrigger("playerRight");
+            
+        } else if (vertical > 0)
+        {
+            animator.SetTrigger("playerUp");
+    
+        } 
         //Check if moving horizontally, if so set vertical to zero.
         if (horizontal != 0)
         {

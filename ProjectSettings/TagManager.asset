@@ -21,6 +21,7 @@ TagManager:
   - Queso
   - Vino
   - Zumo
+  - Food
   layers:
   - Default
   - TransparentFX

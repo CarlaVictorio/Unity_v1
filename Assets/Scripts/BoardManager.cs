@@ -28,11 +28,14 @@ namespace Completed
         public int columns = 8;                                         //Number of columns in our game board.
         public int rows = 8;                                            //Number of rows in our game board.
         public Count wallCount = new Count (5, 9);                        //Lower and upper limit for our random number of walls per level.
-//        public Count foodCount = new Count (1, 5);                        //Lower and upper limit for our random number of food items per level.
+        //public Count foodCount = new Count (1, 1);                        //Lower and upper limit for our random number of food items per level.
+
         public GameObject exit;                                            //Prefab to spawn for exit.
         public GameObject[] floorTiles;                                    //Array of floor prefabs.
         public GameObject[] wallTiles;                                    //Array of wall prefabs.
-//        public GameObject[] foodTiles;                                    //Array of food prefabs.
+        public GameObject[] foodTiles;                                    //Array of food prefabs.
+
+
         public GameObject[] enemyTiles;                                    //Array of enemy prefabs.
         public GameObject[] outerWallHTiles;                                //Array of outer tile prefabs.
         public GameObject[] outerWallVTiles;                                //Array of outer tile prefabs.
@@ -132,6 +135,20 @@ namespace Completed
             }
         }
 
+        //MODIFICAT
+        void LayoutFoodAtRandom (GameObject[] tileArray, int[] recetaId)
+        {
+            int elemento=0;
+            for (int i = 0; i < recetaId.Length; i++)
+            {
+                //Choose a position for randomPosition by getting a random position from our list of available Vector3s stored in gridPosition
+                Vector3 randomPosition = RandomPosition();
+                elemento = recetaId[i];
+                //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
+                Instantiate(tileArray[elemento], randomPosition, Quaternion.identity);
+            }
+        }
+
 
         //SetupScene initializes our level and calls the previous functions to lay out the game board
         public void SetupScene (int level)
@@ -144,10 +161,12 @@ namespace Completed
 
             //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
             LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
+            
+            int[] recetaId = { 0,1,2};
 
             //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-//            LayoutObjectAtRandom (foodTiles, foodCount.minimum, foodCount.maximum);
-
+            LayoutFoodAtRandom(foodTiles, recetaId);
+            
             //Determine number of enemies based on current level number, based on a logarithmic progression
             int enemyCount = (int)Mathf.Log(level, 2f);
 

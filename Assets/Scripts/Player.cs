@@ -9,7 +9,8 @@ public class Player : MovingObject
     public int pointsPerFood = 10;                //Number of points to add to player food points when picking up a food object.
     //public int pointsPerSoda = 20;                //Number of points to add to player food points when picking up a soda object.
     //public int wallDamage = 1;                    //How much damage a player does to a wall when chopping it.
-
+    public string[] recetaNombres = { "PanArriba", "Hamburguesa", "PanAbajo" };
+    public int contadorPasos=0;
     private Animator animator;                    //Used to store a reference to the Player's animator component.
     private int food;                            //Used to store player food points total during level.
 
@@ -125,13 +126,14 @@ public class Player : MovingObject
         }
 
         //Check if the tag of the trigger collided with is Food.
-        else if (other.tag == "Food")
+        else if (other.tag == recetaNombres[contadorPasos])
         {
             ////Add pointsPerFood to the players current food total.
-            //food += pointsPerFood;
+            food += pointsPerFood;
 
             ////Disable the food object the player collided with.
-            //other.gameObject.SetActive(false);
+            other.gameObject.SetActive(false);
+            contadorPasos++;
         }
     }
 

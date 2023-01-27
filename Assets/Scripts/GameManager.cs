@@ -2,8 +2,7 @@ using UnityEngine;
 using System.Collections;
 using Completed;
 using UnityEngine.UI;
-
-    using System.Collections.Generic;        //Allows us to use Lists. 
+using System.Collections.Generic;        //Allows us to use Lists. 
 
     public class GameManager : MonoBehaviour
     {
@@ -11,11 +10,13 @@ using UnityEngine.UI;
         public float turnDelay = .1f;
         public static GameManager instance = null;                //Static instance of GameManager which allows it to be accessed by any other script.
         private BoardManager boardScript;                        //Store a reference to our BoardManager which will set up the level.
-        public int playerFoodPoints = 100;
+        public int playerFoodPoints = 0;
         [HideInInspector] public bool playersTurn = true;
+        
         
         private Text levelText;                                    //Text to display current level number.
         private GameObject levelImage;
+        private GameObject loser;
         private int level = 1;                                    //Current level number, expressed in game as "Day 1".
         private List<Enemy> enemies;
         private bool enemiesMoving;
@@ -61,6 +62,9 @@ using UnityEngine.UI;
             //While doingSetup is true the player can't move, prevent player from moving while title card is up.
             doingSetup = true;
 
+            loser = GameObject.Find("Loser");
+            loser.SetActive(false);
+
             //Get a reference to our image LevelImage by finding it by name.
             levelImage = GameObject.Find("LevelImage");
 
@@ -92,13 +96,20 @@ using UnityEngine.UI;
             doingSetup = false;
         }
 
-        public void GameOver()
+        public void GameOver(int x)
         { 
             //Set levelText to display number of levels passed and game over message
-            levelText.text = "In level " + level + " , you haven't complete the recipe";
+            if (x == 1){
+                levelText.text = "You have been killed!";
+            } else {
+                levelText.text = "Time is over!";
+            }
 
             //Enable black background image gameObject.
             levelImage.SetActive(true);
+            
+            loser.SetActive(true);
+
             enabled = false;
         }
 

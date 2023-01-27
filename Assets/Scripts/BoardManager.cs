@@ -1,5 +1,6 @@
 using UnityEngine;
 using System;
+using UnityEngine.UI;
 using System.Collections.Generic;         //Allows us to use Lists.
 using Random = UnityEngine.Random;         //Tells Random to use the Unity Engine random number generator.
 
@@ -34,6 +35,7 @@ namespace Completed
         public GameObject[] floorTiles;                                    //Array of floor prefabs.
         public GameObject[] wallTiles;                                    //Array of wall prefabs.
         public GameObject[] foodTiles;                                    //Array of food prefabs.
+        public string[] recetaNombres = { "PanArriba", "Hamburguesa", "PanAbajo" };
 
 
         public GameObject[] enemyTiles;                                    //Array of enemy prefabs.
@@ -42,6 +44,14 @@ namespace Completed
 
         private Transform boardHolder;                                    //A variable to store a reference to the transform of our Board object.
         private List <Vector3> gridPositions = new List <Vector3> ();    //A list of possible locations to place tiles.
+        private Text paso1;
+        private Text paso2;
+        private Text paso3;
+        private Text paso4;
+        private Text paso5;
+        private Text paso6;
+        private Text paso7;
+        private Text paso8;
 
 
         //Clears our list gridPositions and prepares it to generate a new board.
@@ -146,6 +156,31 @@ namespace Completed
                 elemento = recetaId[i];
                 //Instantiate tileChoice at the position returned by RandomPosition with no change in rotation
                 Instantiate(tileArray[elemento], randomPosition, Quaternion.identity);
+                if (i == 0){
+                    paso1 = GameObject.Find("Paso1").GetComponent<Text>();
+                    paso1.text = (i+1)+"." + recetaNombres[i];
+                } else if (i == 1){
+                    paso2 = GameObject.Find("Paso2").GetComponent<Text>();
+                    paso2.text = i+1+"." + recetaNombres[i];
+                } else if (i == 2){
+                    paso3 = GameObject.Find("Paso3").GetComponent<Text>();
+                    paso3.text = i+1+"." + recetaNombres[i];
+                } else if (i == 3){
+                    paso4 = GameObject.Find("Paso4").GetComponent<Text>();
+                    paso4.text = i+1+"." + recetaNombres[i];
+                } else if (i == 4){
+                    paso5 = GameObject.Find("Paso5").GetComponent<Text>();
+                    paso5.text = i+1+"." + recetaNombres[i];
+                } else if (i == 5){                    
+                    paso6 = GameObject.Find("Paso6").GetComponent<Text>();
+                    paso6.text = i+1+"." + recetaNombres[i];
+                } else if (i == 6){
+                    paso7 = GameObject.Find("Paso7").GetComponent<Text>();
+                    paso7.text = i+1+"." + recetaNombres[i];
+                } else if (i == 7){
+                    paso8 = GameObject.Find("Paso8").GetComponent<Text>();
+                    paso8.text = i+1+"." + recetaNombres[i];
+                }
             }
         }
 

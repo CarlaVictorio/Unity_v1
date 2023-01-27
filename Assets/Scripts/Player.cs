@@ -1,27 +1,59 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;        //Allows us to use SceneManager
+using UnityEngine.UI;
 
 //Player inherits from MovingObject, our base class for objects that can move, Enemy also inherits from this.
 public class Player : MovingObject
 {
     public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
-    public int pointsPerFood = 10;                //Number of points to add to player food points when picking up a food object.
-    //public int pointsPerSoda = 20;                //Number of points to add to player food points when picking up a soda object.
+    public int pointsPerFood = 20;                //Number of points to add to player food points when picking up a food object.
+    public int timePerUtensilios = 20;                //Number of points to add to player food points when picking up a soda object.
     //public int wallDamage = 1;                    //How much damage a player does to a wall when chopping it.
     public string[] recetaNombres = { "PanArriba", "Hamburguesa", "PanAbajo" };
     public int contadorPasos=0;
     private Animator animator;                    //Used to store a reference to the Player's animator component.
-    private int food;                            //Used to store player food points total during level.
+    private int points = 0;                            //Used to store player food points total during level.
+    public Text pointsText;
+
+
+    private GameObject tick1;
+    private GameObject tick2;
+    private GameObject tick3;
+    private GameObject tick4;
+    private GameObject tick5;
+    private GameObject tick6;
+    private GameObject tick7;
+    private GameObject tick8;
+
 
 
     //Start overrides the Start function of MovingObject
     protected override void Start()
     {
+        tick1 = GameObject.Find("Tick1");
+        tick1.SetActive(false);
+        tick2 = GameObject.Find("Tick2");
+        tick2.SetActive(false);
+        tick3 = GameObject.Find("Tick3");
+        tick3.SetActive(false);
+        tick4 = GameObject.Find("Tick4");
+        tick4.SetActive(false);
+        tick5 = GameObject.Find("Tick5");
+        tick5.SetActive(false);
+        tick6 = GameObject.Find("Tick6");
+        tick6.SetActive(false);
+        tick7 = GameObject.Find("Tick7");
+        tick7.SetActive(false);
+        tick8 = GameObject.Find("Tick8");
+        tick8.SetActive(false);
         //Get a component reference to the Player's animator component
         animator = GetComponent<Animator>();
         //Get the current food point total stored in GameManager.instance between levels.
-        food = GameManager.instance.playerFoodPoints;
+        //points = GameManager.instance.playerFoodPoints;
+        
+        pointsText = GameObject.Find("PointsText").GetComponent<Text>();
+        pointsText.text = "Points: " + points;
         //Call the Start function of the MovingObject base class.
         base.Start();
     }
@@ -31,7 +63,7 @@ public class Player : MovingObject
     private void OnDisable()
     {
         //When Player object is disabled, store the current local food total in the GameManager so it can be re-loaded in next level.
-        GameManager.instance.playerFoodPoints = food;
+        GameManager.instance.playerFoodPoints = points;
     }
 
 
@@ -79,8 +111,6 @@ public class Player : MovingObject
     //AttemptMove takes a generic parameter T which for Player will be of the type Wall, it also takes integers for x and y direction to move in.
     protected override void AttemptMove<T>(int xDir, int yDir)
     {
-        //Every time player moves, subtract from food points total.
-        food--;
         //Call the AttemptMove method of the base class, passing in the component T (in this case Wall) and x and y direction to move.
         base.AttemptMove<T>(xDir, yDir);
         //Hit allows us to reference the result of the Linecast done in Move.
@@ -91,7 +121,7 @@ public class Player : MovingObject
             //Call RandomizeSfx of SoundManager to play the move sound, passing in two audio clips to choose from.
         }
         //Since the player has moved and lost food points, check if the game has ended.
-        CheckIfGameOver();
+        //CheckIfGameOver();
         //Set the playersTurn boolean of GameManager to false now that players turn is over.
         GameManager.instance.playersTurn = false;
     }
@@ -118,21 +148,43 @@ public class Player : MovingObject
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit")
         {
-            //Invoke the Restart function to start the next level with a delay of restartLevelDelay (default 1 second).
-            Invoke("Restart", restartLevelDelay);
+            if (contadorPasos == recetaNombres.Length)
+            {
+                //Invoke the Restart function to start the next level with a delay of restartLevelDelay (default 1 second).
+                Invoke("Restart", restartLevelDelay);
 
-            //Disable the player object since level is over.
-            enabled = false;
+                //Disable the player object since level is over.
+                enabled = false;
+            }
         }
 
         //Check if the tag of the trigger collided with is Food.
         else if (other.tag == recetaNombres[contadorPasos])
         {
+            pointsPerFood = 20;
             ////Add pointsPerFood to the players current food total.
-            food += pointsPerFood;
-
+            points += pointsPerFood;
+            pointsText.text = "Points: " + points;
+            
             ////Disable the food object the player collided with.
             other.gameObject.SetActive(false);
+            if (contadorPasos == 0){
+                tick1.SetActive(true);
+            } else if (contadorPasos == 1){
+                tick2.SetActive(true);
+            } else if (contadorPasos == 2){
+                tick3.SetActive(true);
+            } else if (contadorPasos == 3){
+                tick4.SetActive(true);
+            } else if (contadorPasos == 4){
+                tick5.SetActive(true);
+            } else if (contadorPasos == 5){
+                tick6.SetActive(true);
+            } else if (contadorPasos == 6){
+                tick7.SetActive(true);
+            } else if (contadorPasos == 7){
+                tick8.SetActive(true);
+            }
             contadorPasos++;
         }
     }
@@ -148,16 +200,20 @@ public class Player : MovingObject
 
     //LoseFood is called when an enemy attacks the player.
     //It takes a parameter loss which specifies how many points to lose.
-    public void LoseFood(int loss)
+   public void LosePoints(int loss)
     {
         //Set the trigger for the player animator to transition to the playerHit animation.
         //animator.SetTrigger("playerHit");
 
         //Subtract lost food points from the players total.
-        food -= loss;
+        points -= loss;
+        pointsText.text ="Points: " + points;
 
+        if (points < -20 ){
+            GameManager.instance.GameOver(1);
+        }
         //Check to see if game has ended.
-        CheckIfGameOver();
+        //CheckIfGameOver();
     }
 
 
@@ -165,11 +221,10 @@ public class Player : MovingObject
     private void CheckIfGameOver()
     {
         //Check if food point total is less than or equal to zero.
-        if (food <= 0)
-        {
-
+        //if (food <= 0)
+        //{
             //Call the GameOver function of GameManager.
-            GameManager.instance.GameOver();
-        }
+            //GameManager.instance.GameOver();
+        //}
     }
 }

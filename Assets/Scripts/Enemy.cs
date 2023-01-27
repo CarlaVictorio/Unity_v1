@@ -4,7 +4,7 @@ using System.Collections;
 //Enemy inherits from MovingObject, our base class for objects that can move, Player also inherits from this.
 public class Enemy : MovingObject
 {
-    public int playerDamage;                             //The amount of food points to subtract from the player when attacking.
+    public int playerDamage = 10;                             //The amount of food points to subtract from the player when attacking.
 
     private Animator animator;                            //Variable of type Animator to store a reference to the enemy's Animator component.
     private Transform target;                            //Transform to attempt to move toward each turn.
@@ -90,7 +90,7 @@ public class Enemy : MovingObject
         Player hitPlayer = component as Player;
 
         //Call the LoseFood function of hitPlayer passing it playerDamage, the amount of foodpoints to be subtracted.
-        hitPlayer.LoseFood(playerDamage);
+        hitPlayer.LosePoints(playerDamage);
 
         //Set the attack trigger of animator to trigger Enemy attack animation.
         animator.SetTrigger("enemyAttack");

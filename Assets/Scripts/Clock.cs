@@ -21,14 +21,11 @@ public class Clock : MonoBehaviour
     private float tiempoAMostrarEnSegundos = 0f;
     private float escalaDeTiempoAlPausar, escalaDeTiempoInicial;
     private bool pausado = false;
-    private bool utensilio = false;
-    float segundosPorUtensilios = 20;
-    public AudioClip tiempoSound;     
 
 
     // Start is called before the first frame update
     void Start()
-    {        
+    {
         escalaDeTiempoInicial = escalaTiempo;
         timeText = GameObject.Find("TimeText").GetComponent<Text>();
 
@@ -44,16 +41,6 @@ public class Clock : MonoBehaviour
         //acumula tiempo transcurrido para mostrar en el reloj
         tiempoAMostrarEnSegundos -= tiempoDelFrameConTimeScale;
         actualizarReloj(tiempoAMostrarEnSegundos);
-        if (utensilio == true){
-            float tiempo = tiempoAMostrarEnSegundos - segundosPorUtensilios;
-            tiempoAMostrarEnSegundos=tiempo;
-        //float t = tiempoAMostrarEnSegundos;
-
-        //while (t<tiempoAMostrarEnSegundos && t>tiempo){
-            //escalaTiempo = 3;
-        //}
-        //escalaTiempo = 1;
-        }
         CheckIfGameOver(tiempoAMostrarEnSegundos);
     }
 
@@ -66,9 +53,8 @@ public class Clock : MonoBehaviour
         {
             tiempoEnSegundos = 0;
         } else if (tiempoEnSegundos <= 10){
-            SoundManager.instance.RandomizeSfx(tiempoSound, tiempoSound);
             timeText.color = Color.red;
-        } 
+        }
 
         //Calcular minutos y segundos
         minutos = (int)tiempoEnSegundos/60;
@@ -87,10 +73,5 @@ public class Clock : MonoBehaviour
             //Call the GameOver function of GameManager.
             GameManager.instance.GameOver(0);
         }
-    }
-
-    public void RestarTiempoClock()
-    {
-        utensilio = true;
     }
 }

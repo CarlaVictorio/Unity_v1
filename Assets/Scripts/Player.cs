@@ -17,9 +17,7 @@ public class Player : MovingObject
     private int points = 0;                            //Used to store player food points total during level.
     public Text pointsText;
     public AudioClip pickUpSound;
-    public AudioClip gameOverSound;
     public AudioClip entregarSound;    
-    
 
 
     private GameObject tick1;

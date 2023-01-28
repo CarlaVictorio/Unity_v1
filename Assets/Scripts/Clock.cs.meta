@@ -3,7 +3,8 @@ guid: bd5ebe3599c7644dda991e82671745d3
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - tiempoSound: {fileID: 8300000, guid: 92535b08823b74cfdb3264280525dac5, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 

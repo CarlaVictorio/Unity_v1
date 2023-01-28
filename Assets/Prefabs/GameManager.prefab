@@ -95,4 +95,4 @@ MonoBehaviour:
   turnDelay: 0.1
   playerFoodPoints: 100
   playersTurn: 1
-  clock: {fileID: 0}
+  gameOverSound: {fileID: 8300000, guid: c6bc40930940546159aa6f2a2c60b4dd, type: 3}

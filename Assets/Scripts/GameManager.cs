@@ -20,6 +20,7 @@ using System.Collections.Generic;        //Allows us to use Lists.
         private List<Enemy> enemies;
         private bool enemiesMoving;
         private bool doingSetup = true;
+        public AudioClip gameOverSound;
 
         //Awake is always called before any Start functions
         void Awake()
@@ -96,10 +97,14 @@ using System.Collections.Generic;        //Allows us to use Lists.
         }
 
         public void GameOver(int x)
-        { 
+        {
+            SoundManager.instance.musicSource.Stop();
+            SoundManager.instance.PlaySingle(gameOverSound);
+        
             //Set levelText to display number of levels passed and game over message
             if (x == 1){
                 levelText.text = "You have been killed!";
+
             } else {
                 levelText.text = "Time is over!";
             }

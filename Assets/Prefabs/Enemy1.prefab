@@ -172,3 +172,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 8
   playerDamage: 10
+  enemySound: {fileID: 8300000, guid: fa62bbc00a1d34c01b89017796442444, type: 3}

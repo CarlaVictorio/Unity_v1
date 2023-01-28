@@ -35,7 +35,7 @@ namespace Completed
         public GameObject[] floorTiles;                                    //Array of floor prefabs.
         public GameObject[] wallTiles;                                    //Array of wall prefabs.
         public GameObject[] foodTiles;                                    //Array of food prefabs.
-        public string[] recetaNombres = { "PanArriba", "Hamburguesa", "PanAbajo" };
+        public string[] recetaNombres = { "PanArriba", "Hamburguesa", "Plancha", "PanAbajo"};
 
 
         public GameObject[] enemyTiles;                                    //Array of enemy prefabs.
@@ -197,7 +197,7 @@ namespace Completed
             //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
             LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
             
-            int[] recetaId = { 0,1,2};
+            int[] recetaId = { 0,1,4,2};
 
             //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
             LayoutFoodAtRandom(foodTiles, recetaId);

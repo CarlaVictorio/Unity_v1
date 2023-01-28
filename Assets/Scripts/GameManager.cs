@@ -11,8 +11,7 @@ using System.Collections.Generic;        //Allows us to use Lists.
         public static GameManager instance = null;                //Static instance of GameManager which allows it to be accessed by any other script.
         private BoardManager boardScript;                        //Store a reference to our BoardManager which will set up the level.
         public int playerFoodPoints = 0;
-        [HideInInspector] public bool playersTurn = true;
-        
+        [HideInInspector] public bool playersTurn = true;        
         
         private Text levelText;                                    //Text to display current level number.
         private GameObject levelImage;
@@ -113,18 +112,18 @@ using System.Collections.Generic;        //Allows us to use Lists.
             enabled = false;
         }
 
-
     //Update is called every frame.
     void Update()
     {
-    //Check that playersTurn or enemiesMoving or doingSetup are not currently true.
-    if (playersTurn || enemiesMoving || doingSetup)
+        
+        //Check that playersTurn or enemiesMoving or doingSetup are not currently true.
+        if (playersTurn || enemiesMoving || doingSetup)
 
-        //If any of these are true, return and do not start MoveEnemies.
-        return;
+            //If any of these are true, return and do not start MoveEnemies.
+            return;
 
-    //Start moving enemies.
-    StartCoroutine(MoveEnemies());
+        //Start moving enemies.
+        StartCoroutine(MoveEnemies());
     }
 
     //Call this to add the passed in Enemy to the List of Enemy objects.

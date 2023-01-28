@@ -2,19 +2,24 @@ using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;        //Allows us to use SceneManager
 using UnityEngine.UI;
+using Completed;
 
 //Player inherits from MovingObject, our base class for objects that can move, Enemy also inherits from this.
 public class Player : MovingObject
 {
     public float restartLevelDelay = 1f;        //Delay time in seconds to restart level.
     public int pointsPerFood = 20;                //Number of points to add to player food points when picking up a food object.
-    public int timePerUtensilios = 20;                //Number of points to add to player food points when picking up a soda object.
+    public int pointsPerUtensilios = 30;                //Number of points to add to player food points when picking up a soda object.
     //public int wallDamage = 1;                    //How much damage a player does to a wall when chopping it.
-    public string[] recetaNombres = { "PanArriba", "Hamburguesa", "PanAbajo" };
+    public string[] recetaNombres = { "PanArriba", "Hamburguesa", "Plancha","PanAbajo" };
     public int contadorPasos=0;
     private Animator animator;                    //Used to store a reference to the Player's animator component.
     private int points = 0;                            //Used to store player food points total during level.
     public Text pointsText;
+    public AudioClip pickUpSound;
+    public AudioClip gameOverSound;
+    public AudioClip entregarSound;    
+    
 
 
     private GameObject tick1;
@@ -161,13 +166,25 @@ public class Player : MovingObject
         //Check if the tag of the trigger collided with is Food.
         else if (other.tag == recetaNombres[contadorPasos])
         {
-            pointsPerFood = 20;
-            ////Add pointsPerFood to the players current food total.
-            points += pointsPerFood;
-            pointsText.text = "Points: " + points;
+            SoundManager.instance.RandomizeSfx(pickUpSound, pickUpSound);
+            if (recetaNombres[contadorPasos]=="Cuchillo" || recetaNombres[contadorPasos]=="Freidora"
+            || recetaNombres[contadorPasos]=="Plancha" || recetaNombres[contadorPasos]=="Plato") {
+                
+                pointsPerUtensilios = 30;
+                ////Add pointsPerFood to the players current food total.
+                points += pointsPerUtensilios;
+                pointsText.text = "Points: " + points;
+
+            } else {
+                pointsPerFood = 20;
+                ////Add pointsPerFood to the players current food total.
+                points += pointsPerFood;
+                pointsText.text = "Points: " + points;
             
-            ////Disable the food object the player collided with.
-            other.gameObject.SetActive(false);
+                ////Disable the food object the player collided with.
+                other.gameObject.SetActive(false);
+            }
+            
             if (contadorPasos == 0){
                 tick1.SetActive(true);
             } else if (contadorPasos == 1){
@@ -186,6 +203,9 @@ public class Player : MovingObject
                 tick8.SetActive(true);
             }
             contadorPasos++;
+            if (contadorPasos == recetaNombres.Length){
+                SoundManager.instance.RandomizeSfx(entregarSound, entregarSound);
+            }
         }
     }
 

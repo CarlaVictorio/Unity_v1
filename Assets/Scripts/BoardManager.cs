@@ -197,12 +197,32 @@ namespace Completed
             //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
             LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
 
-            int[] recetaId = {6,7,0,1,4,8,2,9};
-            string[] recetaNombres = { "Patata", "Freidora","PanArriba", "Hamburguesa", "Plancha","Lechuga","PanAbajo","Zumo" };
+            //int[] recetaId = {6,7,0,1,4,2,8,9};
+            string[] recetaNombres = { "Patata", "Freidora","PanArriba", "Hamburguesa", "Plancha","PanAbajo","Lechuga","Zumo" };
 
+            if (level == 1)
+            {
+                int[] recetaId1 = { 6, 7 };
+                //string[] recetaNombres = { "Patata", "Freidora"};
+                LayoutFoodAtRandom(foodTiles, recetaId1, recetaNombres);
+
+            }
+            else if (level == 2)
+            {
+                int[] recetaId2 = { 6, 7,0,1,4,2 };
+                //string[] recetaNombres = { "Patata", "Freidora", "PanArriba", "Hamburguesa", "Plancha", "PanAbajo" };
+                LayoutFoodAtRandom(foodTiles, recetaId2, recetaNombres);
+
+            }
+            else
+            {
+                int[] recetaId3 = { 6, 7, 0, 1, 4, 2, 8, 9 };
+                //string[] recetaNombres = { "Patata", "Freidora", "PanArriba", "Hamburguesa", "Plancha", "PanAbajo", "Lechuga", "Zumo" };
+                LayoutFoodAtRandom(foodTiles, recetaId3, recetaNombres);
+
+            }
             //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-            LayoutFoodAtRandom(foodTiles, recetaId, recetaNombres);
-            
+
             //Determine number of enemies based on current level number, based on a logarithmic progression
             int enemyCount = (int)Mathf.Log(level, 2f);
 

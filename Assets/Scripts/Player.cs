@@ -151,7 +151,7 @@ public class Player : MovingObject
         //Check if the tag of the trigger collided with is Exit.
         if (other.tag == "Exit")
         {
-            if (contadorPasos == recetaNombres.Length)
+           if (contadorPasos >= 2)
             {
                 //Invoke the Restart function to start the next level with a delay of restartLevelDelay (default 1 second).
                 Invoke("Restart", restartLevelDelay);

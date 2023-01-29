@@ -62,11 +62,19 @@ MonoBehaviour:
   - {fileID: 752370550201041756, guid: 8e14603234961473f9f6aa22461bf000, type: 3}
   - {fileID: 7977885493938969481, guid: 8439d826942cc4fbb94bf580e9b221d0, type: 3}
   - {fileID: 7640514050636535807, guid: cfbe0d88078804535bd2ff12d811fa29, type: 3}
+  - {fileID: 3231117324003265098, guid: 91caa5938a5dc401ca1c28c10e402cd8, type: 3}
+  - {fileID: 2056257918845837212, guid: 0fda4068c5aeb41319d76055934f47c1, type: 3}
+  - {fileID: 1959903472792901276, guid: af54831392cf04796b8c562997c5d232, type: 3}
+  - {fileID: 4094136694935349453, guid: 4209e1a2bd2154acaa25ae70d05e4e5c, type: 3}
   recetaNombres:
-  - PanArriba
-  - Hamburguesa
-  - Plancha
-  - PanAbajo
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   enemyTiles:
   - {fileID: 3377467065862219198, guid: 6f65740027b934fd784b3b438bd9c7f6, type: 3}
   - {fileID: 8378254086875152380, guid: 72d7ab0e75b474613b264e5c993b4f5e, type: 3}

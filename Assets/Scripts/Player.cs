@@ -11,7 +11,7 @@ public class Player : MovingObject
     public int pointsPerFood = 20;                //Number of points to add to player food points when picking up a food object.
     public int pointsPerUtensilios = 30;                //Number of points to add to player food points when picking up a soda object.
     //public int wallDamage = 1;                    //How much damage a player does to a wall when chopping it.
-    public string[] recetaNombres = { "PanArriba", "Hamburguesa", "Plancha","PanAbajo" };
+    public string[] recetaNombres = { "Patata", "Freidora","PanArriba", "Hamburguesa", "Plancha","Lechuga","PanAbajo","Zumo" };
     public int contadorPasos=0;
     private Animator animator;                    //Used to store a reference to the Player's animator component.
     private int points = 0;                            //Used to store player food points total during level.

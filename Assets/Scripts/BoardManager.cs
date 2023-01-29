@@ -35,7 +35,7 @@ namespace Completed
         public GameObject[] floorTiles;                                    //Array of floor prefabs.
         public GameObject[] wallTiles;                                    //Array of wall prefabs.
         public GameObject[] foodTiles;                                    //Array of food prefabs.
-        public string[] recetaNombres = { "PanArriba", "Hamburguesa", "Plancha", "PanAbajo"};
+        public string[] recetaNombres = { "Patata", "Freidora","PanArriba", "Hamburguesa", "Plancha","Lechuga","PanAbajo","Zumo" };
 
 
         public GameObject[] enemyTiles;                                    //Array of enemy prefabs.
@@ -146,7 +146,7 @@ namespace Completed
         }
 
         //MODIFICAT
-        void LayoutFoodAtRandom (GameObject[] tileArray, int[] recetaId)
+        void LayoutFoodAtRandom (GameObject[] tileArray, int[] recetaId, String[] recetaNombres)
         {
             int elemento=0;
             for (int i = 0; i < recetaId.Length; i++)
@@ -196,11 +196,12 @@ namespace Completed
 
             //Instantiate a random number of wall tiles based on minimum and maximum, at randomized positions.
             LayoutObjectAtRandom (wallTiles, wallCount.minimum, wallCount.maximum);
-            
-            int[] recetaId = { 0,1,4,2};
+
+            int[] recetaId = {6,7,0,1,4,8,2,9};
+            string[] recetaNombres = { "Patata", "Freidora","PanArriba", "Hamburguesa", "Plancha","Lechuga","PanAbajo","Zumo" };
 
             //Instantiate a random number of food tiles based on minimum and maximum, at randomized positions.
-            LayoutFoodAtRandom(foodTiles, recetaId);
+            LayoutFoodAtRandom(foodTiles, recetaId, recetaNombres);
             
             //Determine number of enemies based on current level number, based on a logarithmic progression
             int enemyCount = (int)Mathf.Log(level, 2f);

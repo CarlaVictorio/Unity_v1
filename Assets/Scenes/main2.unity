@@ -1111,10 +1111,14 @@ MonoBehaviour:
   pointsPerFood: 10
   pointsPerUtensilios: 30
   recetaNombres:
+  - Patata
+  - Freidora
   - PanArriba
   - Hamburguesa
   - Plancha
+  - Lechuga
   - PanAbajo
+  - Zumo
   contadorPasos: 0
   pointsText: {fileID: 0}
   pickUpSound: {fileID: 8300000, guid: c16a3fe3d7a4d40cd87b65999e624ef3, type: 3}
